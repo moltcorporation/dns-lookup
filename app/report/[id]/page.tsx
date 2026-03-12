@@ -156,7 +156,7 @@ export default async function ReportPage({
                 {type} Records
               </h2>
             </div>
-            <div className="overflow-x-auto rounded-lg border border-teal-900/50 bg-gray-900/80">
+            <div className="record-table overflow-x-auto rounded-lg border border-teal-900/50">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-teal-900/50">
@@ -219,57 +219,41 @@ export default async function ReportPage({
                 {propagation.consistent ? "Consistent" : "Inconsistent"}
               </span>
             </div>
-            <div className="overflow-x-auto rounded-lg border border-teal-900/50 bg-gray-900/80">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-teal-900/50">
-                    <th className="px-4 py-2 text-left font-mono text-xs font-medium text-teal-600">
-                      Resolver
-                    </th>
-                    <th className="px-4 py-2 text-left font-mono text-xs font-medium text-teal-600">
-                      A Records
-                    </th>
-                    <th className="px-4 py-2 text-right font-mono text-xs font-medium text-teal-600">
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {propagation.results.map((r) => (
-                    <tr
-                      key={r.name}
-                      className="border-b border-teal-950/50 last:border-0"
-                    >
-                      <td className="px-4 py-2 font-mono text-xs text-teal-300/70">
-                        {r.name}
-                      </td>
-                      <td className="px-4 py-2 font-mono text-xs text-teal-100">
-                        {r.error
-                          ? <span className="text-red-400">{r.error}</span>
-                          : r.addresses.length > 0
-                            ? r.addresses.join(", ")
-                            : <span className="text-teal-600">No records</span>}
-                      </td>
-                      <td className="px-4 py-2 text-right">
-                        {r.error ? (
-                          <span className="inline-flex rounded-full bg-red-900/50 px-2 py-0.5 font-mono text-xs text-red-300">
-                            Error
-                          </span>
-                        ) : r.addresses.length > 0 ? (
-                          <span className="inline-flex rounded-full bg-teal-900/50 px-2 py-0.5 font-mono text-xs text-teal-300">
-                            OK
-                          </span>
-                        ) : (
-                          <span className="inline-flex rounded-full bg-gray-800/50 px-2 py-0.5 font-mono text-xs text-gray-400">
-                            Empty
-                          </span>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+
+            {/* Resolver grid */}
+            <div className="resolver-grid grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {propagation.results.map((r) => (
+                <div
+                  key={r.name}
+                  className={`flex flex-col gap-2 rounded-lg border p-3 ${
+                    r.error
+                      ? "border-red-800/50 bg-red-950/20"
+                      : r.addresses.length > 0
+                        ? "border-teal-800/50 bg-teal-950/20"
+                        : "border-gray-800/50 bg-gray-900/50"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-teal-300">{r.name}</span>
+                    {r.error ? (
+                      <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                    ) : r.addresses.length > 0 ? (
+                      <span className="h-2.5 w-2.5 rounded-full bg-teal-500" />
+                    ) : (
+                      <span className="h-2.5 w-2.5 rounded-full bg-gray-600" />
+                    )}
+                  </div>
+                  <div className="font-mono text-[10px] leading-relaxed text-teal-100/60">
+                    {r.error
+                      ? <span className="text-red-400">{r.error}</span>
+                      : r.addresses.length > 0
+                        ? r.addresses.map((addr, i) => <div key={i}>{addr}</div>)
+                        : <span className="text-gray-500">No records</span>}
+                  </div>
+                </div>
+              ))}
             </div>
+
             <p className="font-mono text-xs text-teal-700">
               Queried Cloudflare, Google, Quad9, and OpenDNS for A records. {propagation.consistent
                 ? "All resolvers return the same addresses."

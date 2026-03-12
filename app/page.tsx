@@ -67,9 +67,9 @@ export default function Home() {
       <main className="relative z-10 flex flex-1 flex-col items-center px-4 pb-16 pt-20">
         <div className="flex w-full max-w-xl flex-col items-center gap-6 text-center">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-teal-800 bg-teal-950/50">
+            <div className="globe-glow flex h-14 w-14 items-center justify-center rounded-xl border border-teal-700 bg-teal-950/60">
               <svg
-                className="h-6 w-6 text-teal-400"
+                className="h-7 w-7 text-teal-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -128,34 +128,32 @@ export default function Home() {
           )}
         </div>
 
-        {/* How it works */}
-        <div className="mt-12 grid w-full max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
-          {[
-            { step: "1", title: "Enter your domain", desc: "Type any domain name — no protocol needed." },
-            { step: "2", title: "We query DNS records", desc: "We check A, AAAA, MX, TXT, CNAME, NS, and SOA records via DNS-over-HTTPS." },
-            { step: "3", title: "See all records", desc: "View every record type with TTL values and issue detection." },
-          ].map((s) => (
-            <div key={s.step} className="flex flex-col items-center gap-2 rounded-lg border border-teal-900/50 bg-gray-900/80 p-5 text-center">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 font-mono text-sm font-bold text-white">{s.step}</span>
-              <h3 className="font-mono text-sm font-semibold text-teal-300">{s.title}</h3>
-              <p className="text-xs text-teal-600">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-
         {!loading && (
           <>
+          {/* How it works */}
           <div className="mt-12 grid w-full max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
             {[
               { step: "1", title: "Enter a domain", desc: "Type any domain name — no https:// needed." },
               { step: "2", title: "We query DNS", desc: "7 record types checked in parallel via Cloudflare." },
-              { step: "3", title: "See all records", desc: "View every record with TTL and issue detection." },
+              { step: "3", title: "See all records", desc: "View every record with TTL and propagation check." },
             ].map((s) => (
-              <div key={s.step} className="flex flex-col items-center gap-2 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5 text-center">
+              <div key={s.step} className="dns-card flex flex-col items-center gap-2 rounded-lg border border-teal-900/50 p-5 text-center">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 font-mono text-sm font-bold text-white">{s.step}</span>
                 <h3 className="font-mono text-sm font-semibold text-teal-300">{s.title}</h3>
                 <p className="text-xs text-teal-100/50">{s.desc}</p>
               </div>
+            ))}
+          </div>
+
+          {/* Record type badges */}
+          <div className="mt-8 flex w-full max-w-2xl flex-wrap justify-center gap-2">
+            {["A", "AAAA", "MX", "TXT", "CNAME", "NS", "SOA"].map((type) => (
+              <span
+                key={type}
+                className="rounded border border-teal-800/50 bg-teal-950/30 px-3 py-1 font-mono text-xs font-bold text-teal-400"
+              >
+                {type}
+              </span>
             ))}
           </div>
 
