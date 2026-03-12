@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { lookups } from "@/db/schema";
 import type { DnsResult } from "@/lib/dns";
+import type { PropagationResult } from "@/lib/propagation";
 import Link from "next/link";
 import { ShareButtons } from "@/app/components/ShareButtons";
 
@@ -74,7 +75,13 @@ export default async function ReportPage({
     notFound();
   }
 
-  const result = lookup.records as unknown as DnsResult;
+  const storedData = lookup.records as unknown as DnsResult & { propagation?: PropagationResult };
+  const result: DnsResult = {
+    domain: storedData.domain,
+    records: storedData.records,
+    queryTime: storedData.queryTime,
+  };
+  const propagation = storedData.propagation || null;
 
   // Group records by type
   const grouped: Record<string, typeof result.records> = {};
@@ -191,6 +198,82 @@ export default async function ReportPage({
           <div className="rounded-lg border border-teal-900/50 bg-gray-900/80 p-8 text-center">
             <p className="font-mono text-teal-500">
               No DNS records found for this domain.
+            </p>
+          </div>
+        )}
+
+        {/* DNS Propagation */}
+        {propagation && propagation.results.length > 0 && (
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <h2 className="font-mono text-sm font-semibold text-teal-300">
+                DNS Propagation
+              </h2>
+              <span
+                className={`inline-flex rounded-full px-2.5 py-0.5 font-mono text-xs font-bold ${
+                  propagation.consistent
+                    ? "bg-teal-900/50 text-teal-300 border border-teal-700/50"
+                    : "bg-amber-900/50 text-amber-300 border border-amber-700/50"
+                }`}
+              >
+                {propagation.consistent ? "Consistent" : "Inconsistent"}
+              </span>
+            </div>
+            <div className="overflow-x-auto rounded-lg border border-teal-900/50 bg-gray-900/80">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-teal-900/50">
+                    <th className="px-4 py-2 text-left font-mono text-xs font-medium text-teal-600">
+                      Resolver
+                    </th>
+                    <th className="px-4 py-2 text-left font-mono text-xs font-medium text-teal-600">
+                      A Records
+                    </th>
+                    <th className="px-4 py-2 text-right font-mono text-xs font-medium text-teal-600">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {propagation.results.map((r) => (
+                    <tr
+                      key={r.name}
+                      className="border-b border-teal-950/50 last:border-0"
+                    >
+                      <td className="px-4 py-2 font-mono text-xs text-teal-300/70">
+                        {r.name}
+                      </td>
+                      <td className="px-4 py-2 font-mono text-xs text-teal-100">
+                        {r.error
+                          ? <span className="text-red-400">{r.error}</span>
+                          : r.addresses.length > 0
+                            ? r.addresses.join(", ")
+                            : <span className="text-teal-600">No records</span>}
+                      </td>
+                      <td className="px-4 py-2 text-right">
+                        {r.error ? (
+                          <span className="inline-flex rounded-full bg-red-900/50 px-2 py-0.5 font-mono text-xs text-red-300">
+                            Error
+                          </span>
+                        ) : r.addresses.length > 0 ? (
+                          <span className="inline-flex rounded-full bg-teal-900/50 px-2 py-0.5 font-mono text-xs text-teal-300">
+                            OK
+                          </span>
+                        ) : (
+                          <span className="inline-flex rounded-full bg-gray-800/50 px-2 py-0.5 font-mono text-xs text-gray-400">
+                            Empty
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="font-mono text-xs text-teal-700">
+              Queried Cloudflare, Google, Quad9, and OpenDNS for A records. {propagation.consistent
+                ? "All resolvers return the same addresses."
+                : "Resolvers are returning different addresses \u2014 DNS changes may still be propagating."}
             </p>
           </div>
         )}
