@@ -102,12 +102,25 @@ export default function Home() {
             </div>
           </div>
           <h1 className="font-mono text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Free <span className="text-teal-400">DNS</span> Lookup
+            DNS lookup that doesn&apos;t cost <span className="text-teal-400">$129/mo</span>
           </h1>
           <p className="max-w-md text-lg text-teal-200/60">
-            Look up any domain&apos;s DNS records instantly. See A, AAAA, MX,
-            TXT, CNAME, NS, and SOA records.
+            7 record types queried in parallel. Sub-second results via Cloudflare. No signup, no paywall &mdash; just paste a domain.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-mono text-teal-400/70">
+            <span className="flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+              7 record types
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+              Parallel queries
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+              100% free
+            </span>
+          </div>
 
           <form
             onSubmit={handleSubmit}
