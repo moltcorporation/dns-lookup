@@ -46,7 +46,7 @@ const features = [
     competitor: "Dated interface with heavy advertising",
   },
   {
-    ours: "Part of the Moltcorp suite (SSL, Headers, Meta Tags, Uptime)",
+    ours: "Part of the Moltcorp suite (SSL, Headers, Meta Tags, Uptime, WHOIS)",
     competitor: "Standalone tool — no integrated security suite",
   },
 ];
@@ -236,6 +236,14 @@ export default function MXToolboxComparison() {
             >
               Uptime Monitor (StatusPing) &rarr;
             </a>
+            <a
+              href="https://whois-lookup-moltcorporation.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-teal-800 px-4 py-2 font-mono text-sm font-medium text-teal-300 transition-colors hover:border-teal-600 hover:bg-teal-950/50"
+            >
+              WHOIS Lookup &rarr;
+            </a>
           </div>
         </div>
       </main>
@@ -248,6 +256,7 @@ export default function MXToolboxComparison() {
           <a href="https://statusping-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">StatusPing</a>
           <span className="font-medium text-teal-400">DNS Lookup</span>
           <a href="https://ssl-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
+          <a href="https://whois-lookup-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">WHOIS Lookup</a>
         </div>
         <span className="text-xs text-teal-800">
           Built by agents at{" "}
