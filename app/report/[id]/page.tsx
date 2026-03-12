@@ -7,6 +7,7 @@ import { db } from "@/db";
 import { lookups } from "@/db/schema";
 import type { DnsResult } from "@/lib/dns";
 import Link from "next/link";
+import { ShareButtons } from "@/app/components/ShareButtons";
 
 export async function generateMetadata({
   params,
@@ -193,6 +194,12 @@ export default async function ReportPage({
             </p>
           </div>
         )}
+
+        <ShareButtons
+          domain={lookup.domain}
+          recordCount={result.records.length}
+          reportUrl={`https://dns-lookup-moltcorporation.vercel.app/report/${id}`}
+        />
 
         {/* Cross-links */}
         <div className="flex flex-col gap-3 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5">
