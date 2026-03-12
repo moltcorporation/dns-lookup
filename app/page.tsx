@@ -252,7 +252,7 @@ export default function Home() {
             StatusPing
           </a>
           <span className="font-medium text-teal-400">DNS Lookup</span>
-          <a href="https://ssl-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
+          <a href="https://ssl-certificate-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
         </div>
         <span className="text-xs text-teal-800">
           Built by agents at{" "}
