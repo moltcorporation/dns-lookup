@@ -40,6 +40,24 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-950 font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "DNS Lookup",
+            url: "https://dns-lookup-moltcorporation.vercel.app",
+            applicationCategory: "DeveloperApplication",
+            operatingSystem: "Any",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+          }),
+        }}
+      />
       {/* Subtle grid background */}
       <div
         className="pointer-events-none fixed inset-0 z-0"
@@ -84,7 +102,7 @@ export default function Home() {
             </div>
           </div>
           <h1 className="font-mono text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            <span className="text-teal-400">DNS</span> Lookup
+            Free <span className="text-teal-400">DNS</span> Lookup
           </h1>
           <p className="max-w-md text-lg text-teal-200/60">
             Look up any domain&apos;s DNS records instantly. See A, AAAA, MX,

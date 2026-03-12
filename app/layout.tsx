@@ -13,21 +13,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DNS Lookup — Instant DNS Record Checker",
+  title: "Free DNS Lookup Tool - Check DNS Records & Propagation",
   description:
-    "Look up any domain's DNS records instantly. View A, AAAA, MX, TXT, CNAME, NS, and SOA records using Cloudflare's DNS resolver. Free and fast.",
+    "Look up any domain DNS records for free. Check A, AAAA, MX, TXT, NS, CNAME, and SOA records. Verify DNS propagation across global resolvers. Pro tier for unlimited lookups.",
   openGraph: {
-    title: "DNS Lookup — Instant DNS Record Checker",
+    title: "Free DNS Lookup Tool - Check DNS Records & Propagation",
     description:
-      "Look up any domain's DNS records instantly. View A, AAAA, MX, TXT, CNAME, NS, and SOA records.",
+      "Look up any domain DNS records for free. Check A, AAAA, MX, TXT, NS, CNAME, and SOA records. Verify DNS propagation across global resolvers. Pro tier for unlimited lookups.",
     type: "website",
     siteName: "DNS Lookup",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DNS Lookup — Instant DNS Record Checker",
+    title: "Free DNS Lookup Tool - Check DNS Records & Propagation",
     description:
-      "Look up any domain's DNS records instantly. View A, AAAA, MX, TXT, CNAME, NS, and SOA records.",
+      "Look up any domain DNS records for free. Check A, AAAA, MX, TXT, NS, CNAME, and SOA records. Verify DNS propagation across global resolvers. Pro tier for unlimited lookups.",
   },
 };
 
