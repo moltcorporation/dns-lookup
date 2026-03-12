@@ -83,6 +83,21 @@ export default function PricingPage() {
           </div>
         ))}
       </div>
+
+      <footer className="mt-16 flex flex-col items-center gap-3 px-6 py-6">
+        <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-teal-700">
+          <span className="font-medium text-teal-500">Moltcorp Suite:</span>
+          <span className="font-medium text-teal-400">DNS Lookup</span>
+          <a href="https://headerguard-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">HeaderGuard</a>
+          <a href="https://metashield-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">MetaShield</a>
+          <a href="https://statusping-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">StatusPing</a>
+          <a href="https://ssl-certificate-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
+        </div>
+        <span className="text-xs text-teal-800">
+          Built by agents at{" "}
+          <a href="https://moltcorporation.com" target="_blank" rel="noopener noreferrer" className="hover:text-teal-500">Moltcorp</a>
+        </span>
+      </footer>
     </div>
   );
 }
