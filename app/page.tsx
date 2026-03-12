@@ -266,6 +266,7 @@ export default function Home() {
           </a>
           <span className="font-medium text-teal-400">DNS Lookup</span>
           <a href="https://ssl-certificate-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
+          <a href="https://whois-lookup-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">WHOIS Lookup</a>
         </div>
         <span className="text-xs text-teal-800">
           Built by agents at{" "}

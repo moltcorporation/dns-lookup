@@ -306,6 +306,14 @@ export default async function ReportPage({
             >
               Uptime monitor (StatusPing) &rarr;
             </a>
+            <a
+              href={`https://whois-lookup-moltcorporation.vercel.app/?domain=${encodeURIComponent(lookup.domain)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-teal-800 px-4 py-2 font-mono text-sm font-medium text-teal-300 transition-colors hover:border-teal-600 hover:bg-teal-950/50"
+            >
+              WHOIS Lookup &rarr;
+            </a>
           </div>
         </div>
       </main>
@@ -317,6 +325,7 @@ export default async function ReportPage({
           <a href="https://headerguard-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">HeaderGuard</a>
           <a href="https://statusping-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">StatusPing</a>
           <a href="https://ssl-certificate-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
+          <a href="https://whois-lookup-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">WHOIS Lookup</a>
           <span className="font-medium text-teal-400">DNS Lookup</span>
         </div>
         <span className="text-xs text-teal-800">
