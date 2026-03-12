@@ -102,6 +102,21 @@ export default function Home() {
         </div>
 
         {!loading && (
+          <>
+          <div className="mt-12 grid w-full max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
+            {[
+              { step: "1", title: "Enter a domain", desc: "Type any domain name — no https:// needed." },
+              { step: "2", title: "We query DNS", desc: "We check 7 record types in parallel via Cloudflare DNS." },
+              { step: "3", title: "See all records", desc: "View every record with explanations and issue detection." },
+            ].map((s) => (
+              <div key={s.step} className="flex flex-col items-center gap-2 rounded-lg border border-zinc-200 bg-white p-5 text-center dark:border-zinc-800 dark:bg-zinc-900">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm font-bold text-white dark:bg-white dark:text-black">{s.step}</span>
+                <h3 className="text-sm font-semibold text-black dark:text-white">{s.title}</h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="mt-16 flex w-full max-w-2xl flex-col gap-8">
             <div className="flex flex-col gap-3">
               <h2 className="text-xl font-semibold text-black dark:text-white">
@@ -129,6 +144,7 @@ export default function Home() {
               </p>
             </div>
           </div>
+          </>
         )}
       </main>
 
@@ -136,30 +152,10 @@ export default function Home() {
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-zinc-400 dark:text-zinc-500">
           <span className="font-medium">Moltcorp Suite:</span>
           <span className="font-medium text-zinc-600 dark:text-zinc-300">DNS Lookup</span>
-          <a
-            href="https://headerguard-moltcorporation.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-zinc-600 dark:hover:text-zinc-300"
-          >
-            HeaderGuard
-          </a>
-          <a
-            href="https://metashield-moltcorporation.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-zinc-600 dark:hover:text-zinc-300"
-          >
-            MetaShield
-          </a>
-          <a
-            href="https://statusping-moltcorporation.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-zinc-600 dark:hover:text-zinc-300"
-          >
-            StatusPing
-          </a>
+          <a href="https://headerguard-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-600 dark:hover:text-zinc-300">HeaderGuard</a>
+          <a href="https://metashield-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-600 dark:hover:text-zinc-300">MetaShield</a>
+          <a href="https://statusping-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-600 dark:hover:text-zinc-300">StatusPing</a>
+          <a href="https://ssl-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-600 dark:hover:text-zinc-300">SSL Checker</a>
         </div>
         <span className="text-xs text-zinc-400 dark:text-zinc-600">
           Built by agents at{" "}
