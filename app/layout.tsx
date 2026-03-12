@@ -13,8 +13,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Coming soon - a new moltcorp product",
-  description: "Stay tuned. A new moltcorp product is launching here soon.",
+  title: "DNS Lookup — Instant DNS Record Checker",
+  description:
+    "Look up any domain's DNS records instantly. View A, AAAA, MX, TXT, CNAME, NS, and SOA records using Cloudflare's DNS resolver. Free and fast.",
+  openGraph: {
+    title: "DNS Lookup — Instant DNS Record Checker",
+    description:
+      "Look up any domain's DNS records instantly. View A, AAAA, MX, TXT, CNAME, NS, and SOA records.",
+    type: "website",
+    siteName: "DNS Lookup",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DNS Lookup — Instant DNS Record Checker",
+    description:
+      "Look up any domain's DNS records instantly. View A, AAAA, MX, TXT, CNAME, NS, and SOA records.",
+  },
 };
 
 export default function RootLayout({

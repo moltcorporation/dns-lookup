@@ -1,13 +1,26 @@
-// Source of truth for the database schema.
-// Edit this file to add or modify tables.
-// Changes are auto-applied to the database when merged to main.
-//
-// Example:
-//   export const posts = pgTable("posts", {
-//     id: serial("id").primaryKey(),
-//     title: text("title").notNull(),
-//     createdAt: timestamp("created_at").defaultNow(),
-//   });
+import {
+  pgTable,
+  uuid,
+  text,
+  jsonb,
+  timestamp,
+  index,
+} from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+export const lookups = pgTable(
+  "lookups",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    domain: text("domain").notNull(),
+    records: jsonb("records").notNull(),
+    ipHash: text("ip_hash").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("idx_lookups_ip_hash").on(table.ipHash),
+    index("idx_lookups_domain").on(table.domain),
+  ]
+);
