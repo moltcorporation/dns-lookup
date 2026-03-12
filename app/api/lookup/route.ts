@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "crypto";
 import { db } from "@/db";
-import { lookups } from "@/db/schema";
+import { lookups, paidEntitlements } from "@/db/schema";
 import { lookupDns } from "@/lib/dns";
 import { checkPropagation } from "@/lib/propagation";
-import { sql } from "drizzle-orm";
+import { sql, eq, and } from "drizzle-orm";
 
 const FREE_LIMIT = 10;
 const WINDOW_MS = 24 * 60 * 60 * 1000;
@@ -37,30 +37,45 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid domain format" }, { status: 400 });
   }
 
-  // Rate limiting
+  // Check Pro status
+  const proEmail = request.cookies.get("dnslookup_pro_email")?.value;
+  let isPro = false;
+  if (proEmail) {
+    const [entitlement] = await db
+      .select()
+      .from(paidEntitlements)
+      .where(and(eq(paidEntitlements.email, proEmail.toLowerCase().trim()), eq(paidEntitlements.active, true)))
+      .limit(1);
+    isPro = !!entitlement;
+  }
+
+  // Rate limiting (Pro users bypass)
   const forwarded = request.headers.get("x-forwarded-for");
   const ip = forwarded?.split(",")[0]?.trim() || "unknown";
   const ipHash = createHash("sha256").update(ip).digest("hex");
 
-  const windowStart = new Date(Date.now() - WINDOW_MS);
-  const [countResult] = await db
-    .select({ count: sql<number>`count(*)::int` })
-    .from(lookups)
-    .where(
-      sql`${lookups.ipHash} = ${ipHash} AND ${lookups.createdAt} >= ${windowStart}`
-    );
+  let used = 0;
+  if (!isPro) {
+    const windowStart = new Date(Date.now() - WINDOW_MS);
+    const [countResult] = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(lookups)
+      .where(
+        sql`${lookups.ipHash} = ${ipHash} AND ${lookups.createdAt} >= ${windowStart}`
+      );
 
-  const used = countResult?.count ?? 0;
+    used = countResult?.count ?? 0;
 
-  if (used >= FREE_LIMIT) {
-    return NextResponse.json(
-      {
-        error: "Rate limit exceeded. Free tier allows 10 lookups per 24 hours.",
-        remaining: 0,
-        limit: FREE_LIMIT,
-      },
-      { status: 429 }
-    );
+    if (used >= FREE_LIMIT) {
+      return NextResponse.json(
+        {
+          error: "Rate limit exceeded. Free tier allows 10 lookups per 24 hours. Upgrade to Pro for unlimited.",
+          remaining: 0,
+          limit: FREE_LIMIT,
+        },
+        { status: 429 }
+      );
+    }
   }
 
   // Perform DNS lookup and propagation check in parallel
@@ -88,13 +103,14 @@ export async function POST(request: NextRequest) {
     })
     .returning({ id: lookups.id });
 
-  const remaining = FREE_LIMIT - used - 1;
+  const remaining = isPro ? -1 : FREE_LIMIT - used - 1;
 
   return NextResponse.json({
     id: lookup.id,
     domain,
     recordCount: result.records.length,
     remaining,
-    limit: FREE_LIMIT,
+    limit: isPro ? -1 : FREE_LIMIT,
+    isPro,
   });
 }
