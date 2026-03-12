@@ -3,6 +3,7 @@ import { createHash } from "crypto";
 import { db } from "@/db";
 import { lookups } from "@/db/schema";
 import { lookupDns } from "@/lib/dns";
+import { checkPropagation } from "@/lib/propagation";
 import { sql } from "drizzle-orm";
 
 const FREE_LIMIT = 10;
@@ -62,10 +63,14 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Perform DNS lookup
+  // Perform DNS lookup and propagation check in parallel
   let result;
+  let propagation;
   try {
-    result = await lookupDns(domain);
+    [result, propagation] = await Promise.all([
+      lookupDns(domain),
+      checkPropagation(domain),
+    ]);
   } catch {
     return NextResponse.json(
       { error: "DNS lookup failed. Check that the domain is valid." },
@@ -73,12 +78,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Store lookup
+  // Store lookup with propagation data
   const [lookup] = await db
     .insert(lookups)
     .values({
       domain,
-      records: result,
+      records: { ...result, propagation },
       ipHash,
     })
     .returning({ id: lookups.id });
@@ -89,6 +94,7 @@ export async function POST(request: NextRequest) {
     id: lookup.id,
     domain,
     recordCount: result.records.length,
+    propagationConsistent: propagation.consistent,
     remaining,
     limit: FREE_LIMIT,
   });
