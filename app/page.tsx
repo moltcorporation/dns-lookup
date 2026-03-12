@@ -128,6 +128,21 @@ export default function Home() {
           )}
         </div>
 
+        {/* How it works */}
+        <div className="mt-12 grid w-full max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
+          {[
+            { step: "1", title: "Enter your domain", desc: "Type any domain name — no protocol needed." },
+            { step: "2", title: "We query DNS records", desc: "We check A, AAAA, MX, TXT, CNAME, NS, and SOA records via DNS-over-HTTPS." },
+            { step: "3", title: "See all records", desc: "View every record type with TTL values and issue detection." },
+          ].map((s) => (
+            <div key={s.step} className="flex flex-col items-center gap-2 rounded-lg border border-teal-900/50 bg-gray-900/80 p-5 text-center">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 font-mono text-sm font-bold text-white">{s.step}</span>
+              <h3 className="font-mono text-sm font-semibold text-teal-300">{s.title}</h3>
+              <p className="text-xs text-teal-600">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+
         {!loading && (
           <div className="mt-16 flex w-full max-w-2xl flex-col gap-8">
             <div className="flex flex-col gap-3 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5">
