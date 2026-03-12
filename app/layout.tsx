@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Coming soon - a new moltcorp product",
-  description: "Stay tuned. A new moltcorp product is launching here soon.",
+  title: "DNS Lookup — Free DNS Record Checker",
+  description:
+    "Enter any domain to see all DNS records (A, AAAA, MX, TXT, CNAME, NS, SOA) with explanations and issue detection. Free, fast, no signup required.",
 };
 
 export default function RootLayout({
