@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #030712;
+  --foreground: #ccfbf1;
 }
 
 @theme inline {
@@ -12,15 +12,34 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+.globe-glow {
+  box-shadow: 0 0 24px rgba(20, 184, 166, 0.3), 0 0 48px rgba(20, 184, 166, 0.1);
+  animation: globe-pulse 3s ease-in-out infinite;
+}
+
+@keyframes globe-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(20, 184, 166, 0.25), 0 0 40px rgba(20, 184, 166, 0.08); }
+  50% { box-shadow: 0 0 32px rgba(20, 184, 166, 0.4), 0 0 56px rgba(20, 184, 166, 0.15); }
+}
+
+.dns-card {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.04) 0%, rgba(15, 23, 42, 0.8) 100%);
+  backdrop-filter: blur(4px);
+}
+
+.resolver-grid {
+  background:
+    linear-gradient(rgba(20, 184, 166, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 184, 166, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.record-table {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%);
 }
