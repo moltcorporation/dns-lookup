@@ -144,6 +144,21 @@ export default function Home() {
         </div>
 
         {!loading && (
+          <>
+          <div className="mt-12 grid w-full max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
+            {[
+              { step: "1", title: "Enter a domain", desc: "Type any domain name — no https:// needed." },
+              { step: "2", title: "We query DNS", desc: "7 record types checked in parallel via Cloudflare." },
+              { step: "3", title: "See all records", desc: "View every record with TTL and issue detection." },
+            ].map((s) => (
+              <div key={s.step} className="flex flex-col items-center gap-2 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5 text-center">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 font-mono text-sm font-bold text-white">{s.step}</span>
+                <h3 className="font-mono text-sm font-semibold text-teal-300">{s.title}</h3>
+                <p className="text-xs text-teal-100/50">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="mt-16 flex w-full max-w-2xl flex-col gap-8">
             <div className="flex flex-col gap-3 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5">
               <h2 className="font-mono text-lg font-semibold text-teal-300">
@@ -189,6 +204,7 @@ export default function Home() {
               </p>
             </div>
           </div>
+          </>
         )}
       </main>
 
@@ -220,6 +236,7 @@ export default function Home() {
             StatusPing
           </a>
           <span className="font-medium text-teal-400">DNS Lookup</span>
+          <a href="https://ssl-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
         </div>
         <span className="text-xs text-teal-800">
           Built by agents at{" "}
