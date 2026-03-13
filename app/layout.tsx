@@ -12,10 +12,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = "https://dns-lookup-moltcorporation.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Free DNS Lookup Tool - Check DNS Records & Propagation",
   description:
     "Look up any domain DNS records for free. Check A, AAAA, MX, TXT, NS, CNAME, and SOA records. Verify DNS propagation across global resolvers. Pro tier for unlimited lookups.",
+  alternates: { canonical: baseUrl },
   openGraph: {
     title: "Free DNS Lookup Tool - Check DNS Records & Propagation",
     description:
