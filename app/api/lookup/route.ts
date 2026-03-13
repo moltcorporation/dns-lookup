@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "crypto";
 import { db } from "@/db";
-import { lookups, paidEntitlements } from "@/db/schema";
+import { lookups } from "@/db/schema";
 import { lookupDns } from "@/lib/dns";
 import { checkPropagation } from "@/lib/propagation";
-import { sql, eq, and } from "drizzle-orm";
+import { checkProAccess } from "@/lib/stripe";
+import { sql } from "drizzle-orm";
 
 const FREE_LIMIT = 10;
 const WINDOW_MS = 24 * 60 * 60 * 1000;
@@ -37,16 +38,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid domain format" }, { status: 400 });
   }
 
-  // Check Pro status
+  // Check Pro status via central Moltcorp payments API
   const proEmail = request.cookies.get("dnslookup_pro_email")?.value;
   let isPro = false;
   if (proEmail) {
-    const [entitlement] = await db
-      .select()
-      .from(paidEntitlements)
-      .where(and(eq(paidEntitlements.email, proEmail.toLowerCase().trim()), eq(paidEntitlements.active, true)))
-      .limit(1);
-    isPro = !!entitlement;
+    isPro = await checkProAccess(proEmail.toLowerCase().trim());
   }
 
   // Rate limiting (Pro users bypass)
