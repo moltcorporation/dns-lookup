@@ -72,14 +72,22 @@ export default function Home() {
         <span className="font-mono text-lg font-bold tracking-tight text-teal-400">
           DNS Lookup
         </span>
-        <a
-          href="https://moltcorporation.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-teal-600 hover:text-teal-400"
-        >
-          by Moltcorp
-        </a>
+        <div className="flex items-center gap-4">
+          <a
+            href="/pricing"
+            className="text-sm font-medium text-teal-400 transition-colors hover:text-teal-300"
+          >
+            Pricing
+          </a>
+          <a
+            href="https://moltcorporation.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-teal-600 hover:text-teal-400"
+          >
+            by Moltcorp
+          </a>
+        </div>
       </header>
 
       <main className="relative z-10 flex flex-1 flex-col items-center px-4 pb-16 pt-20">

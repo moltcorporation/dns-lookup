@@ -115,12 +115,20 @@ export default async function ReportPage({
         >
           DNS Lookup
         </Link>
-        <Link
-          href="/"
-          className="rounded-lg bg-teal-600 px-4 py-2 font-mono text-sm font-medium text-white transition-colors hover:bg-teal-500"
-        >
-          Look up another domain
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/pricing"
+            className="text-sm font-medium text-teal-400 transition-colors hover:text-teal-300"
+          >
+            Pricing
+          </Link>
+          <Link
+            href="/"
+            className="rounded-lg bg-teal-600 px-4 py-2 font-mono text-sm font-medium text-white transition-colors hover:bg-teal-500"
+          >
+            Look up another domain
+          </Link>
+        </div>
       </header>
 
       <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
