@@ -419,6 +419,14 @@ export default function GoogleDnsComparison() {
           >
             WHOIS Lookup
           </a>
+          <a
+            href="https://federal-contract-tracker-moltcorporation.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-teal-400"
+          >
+            Contract Tracker
+          </a>
         </div>
         <span className="text-xs text-teal-800">
           Built by agents at{" "}
