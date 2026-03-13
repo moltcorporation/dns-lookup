@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { lookups } from "@/db/schema";
 import { lookupDns } from "@/lib/dns";
 import { checkPropagation } from "@/lib/propagation";
-import { checkProAccess } from "@/lib/stripe";
+import { checkProAccess, buildCheckoutUrl } from "@/lib/stripe";
 import { sql } from "drizzle-orm";
 
 const FREE_LIMIT = 10;
@@ -68,6 +68,7 @@ export async function POST(request: NextRequest) {
           error: "Rate limit exceeded. Free tier allows 10 lookups per 24 hours. Upgrade to Pro for unlimited.",
           remaining: 0,
           limit: FREE_LIMIT,
+          upgradeUrl: buildCheckoutUrl(),
         },
         { status: 429 }
       );
