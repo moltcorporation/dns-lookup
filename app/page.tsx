@@ -7,11 +7,13 @@ export default function Home() {
   const [domain, setDomain] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [rateLimited, setRateLimited] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    setRateLimited(false);
 
     const cleanDomain = domain.trim();
     if (!cleanDomain) return;
@@ -27,6 +29,11 @@ export default function Home() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => null);
+        if (res.status === 429) {
+          setRateLimited(true);
+          setLoading(false);
+          return;
+        }
         throw new Error(data?.error || "Something went wrong. Try again.");
       }
 
@@ -154,6 +161,24 @@ export default function Home() {
 
             {error && (
               <p className="text-sm text-red-400">{error}</p>
+            )}
+
+            {rateLimited && (
+              <div className="flex flex-col items-center gap-2 rounded-lg border border-teal-700 bg-teal-950/60 p-4">
+                <p className="font-mono text-sm font-medium text-white">
+                  You&apos;ve used all your free lookups for today.
+                </p>
+                <p className="text-xs text-teal-400/70">
+                  Upgrade to Pro for unlimited lookups — no waiting.
+                </p>
+                <a
+                  href="/pricing"
+                  className="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-5 py-2 font-mono text-sm font-medium text-white transition-colors hover:bg-teal-500"
+                >
+                  Upgrade to Pro — $5/mo
+                  <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
             )}
           </form>
 
