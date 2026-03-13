@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "MXToolbox Alternative — Free DNS Lookup Tool | DNS Lookup",
   description:
     "Looking for an MXToolbox alternative? DNS Lookup is a free DNS record checker with propagation testing across 4 global resolvers. Pro tier at $5/mo — not $129. No login required.",
+  alternates: {
+    canonical: "https://dns-lookup-moltcorporation.vercel.app/compare/mxtoolbox",
+  },
   openGraph: {
     title: "MXToolbox Alternative — DNS Lookup",
     description:
@@ -19,6 +22,34 @@ export const metadata: Metadata = {
       "Free DNS lookup tool with propagation checking. MXToolbox Pro is $129/mo — ours is $5.",
   },
 };
+
+const faqs = [
+  {
+    question: "What is MXToolbox?",
+    answer:
+      "MXToolbox is a suite of network diagnostic tools focused on email deliverability, DNS lookups, and blacklist monitoring. Their free tier includes basic DNS lookups with ads, while their SuperTool Pro starts at $129/mo.",
+  },
+  {
+    question: "Is DNS Lookup a good alternative to MXToolbox?",
+    answer:
+      "For DNS record lookups and propagation checking, yes. DNS Lookup checks 7 record types in parallel with propagation testing across 4 global resolvers. If you need email-specific tools like blacklist monitoring or SMTP diagnostics, MXToolbox is more comprehensive.",
+  },
+  {
+    question: "How much does MXToolbox cost?",
+    answer:
+      "MXToolbox offers a free tier with basic lookups and advertising. Their paid plans start at $129/mo for SuperTool Pro. DNS Lookup offers a Pro tier at $5/mo for unlimited lookups — 25x cheaper.",
+  },
+  {
+    question: "What DNS record types does DNS Lookup check?",
+    answer:
+      "DNS Lookup checks 7 record types in a single parallel query: A (IPv4), AAAA (IPv6), MX (mail servers), TXT (verification/SPF), CNAME (aliases), NS (nameservers), and SOA (zone authority).",
+  },
+  {
+    question: "Does DNS Lookup check DNS propagation?",
+    answer:
+      "Yes. DNS Lookup tests propagation across 4 global resolvers — Cloudflare, Google, Quad9, and OpenDNS — so you can see if your DNS changes have propagated worldwide.",
+  },
+];
 
 const features = [
   {
@@ -181,6 +212,65 @@ export default function MXToolboxComparison() {
           </div>
         </div>
 
+        {/* When MXToolbox is better */}
+        <div className="flex flex-col gap-3 rounded-lg border border-teal-900/50 bg-gray-900/50 p-6">
+          <h2 className="font-mono text-lg font-semibold text-teal-300">
+            When MXToolbox is better
+          </h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-teal-100/50">
+            <li>You need <strong className="text-teal-200">email deliverability tools</strong> — blacklist monitoring, SMTP diagnostics, and mail flow analysis.</li>
+            <li>You need <strong className="text-teal-200">comprehensive domain health reports</strong> with historical data and scheduled monitoring.</li>
+            <li>Your team is enterprise-scale and needs <strong className="text-teal-200">multi-user dashboards</strong> and alerting integrations.</li>
+            <li>You need <strong className="text-teal-200">DMARC, DKIM, and SPF analysis</strong> beyond basic TXT record lookups.</li>
+          </ul>
+        </div>
+
+        {/* When DNS Lookup is better */}
+        <div className="flex flex-col gap-3 rounded-lg border border-teal-900/50 bg-gray-900/50 p-6">
+          <h2 className="font-mono text-lg font-semibold text-teal-300">
+            When DNS Lookup is better
+          </h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-teal-100/50">
+            <li>You need a <strong className="text-teal-200">quick DNS lookup</strong> — enter a domain, get all 7 record types instantly.</li>
+            <li>You want <strong className="text-teal-200">propagation checking</strong> across 4 global resolvers in one view.</li>
+            <li>You want <strong className="text-teal-200">shareable reports</strong> with permanent URLs to send to teammates or clients.</li>
+            <li>You need <strong className="text-teal-200">unlimited lookups</strong> at $5/mo instead of $129/mo — 25x cheaper.</li>
+            <li>You want one tool that&apos;s part of the <strong className="text-teal-200">Moltcorp suite</strong> alongside SSL, headers, meta tags, WHOIS, and uptime monitoring.</li>
+          </ul>
+        </div>
+
+        {/* FAQ */}
+        <div className="flex flex-col gap-6">
+          <h2 className="font-mono text-lg font-semibold text-teal-300">
+            Frequently asked questions
+          </h2>
+          {faqs.map((faq, i) => (
+            <div key={i} className="flex flex-col gap-2 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5">
+              <h3 className="font-mono text-sm font-semibold text-teal-200">{faq.question}</h3>
+              <p className="text-sm text-teal-100/50">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
+        />
+
         {/* CTA */}
         <div className="flex flex-col items-center gap-4 rounded-lg border border-teal-800 bg-teal-950/50 p-8 text-center">
           <h2 className="font-mono text-xl font-bold text-white">
@@ -205,7 +295,7 @@ export default function MXToolboxComparison() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="https://ssl-checker-moltcorporation.vercel.app"
+              href="https://ssl-certificate-checker-moltcorporation.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-teal-800 px-4 py-2 font-mono text-sm font-medium text-teal-300 transition-colors hover:border-teal-600 hover:bg-teal-950/50"
@@ -255,7 +345,7 @@ export default function MXToolboxComparison() {
           <a href="https://headerguard-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">HeaderGuard</a>
           <a href="https://statusping-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">StatusPing</a>
           <span className="font-medium text-teal-400">DNS Lookup</span>
-          <a href="https://ssl-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
+          <a href="https://ssl-certificate-checker-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">SSL Checker</a>
           <a href="https://whois-lookup-moltcorporation.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400">WHOIS Lookup</a>
         </div>
         <span className="text-xs text-teal-800">
