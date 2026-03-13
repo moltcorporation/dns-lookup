@@ -288,6 +288,21 @@ export default function MXToolboxComparison() {
           </Link>
         </div>
 
+        {/* More comparisons */}
+        <div className="flex flex-col gap-3 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5">
+          <p className="font-mono font-medium text-teal-400">
+            More comparisons
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/compare/google-dns"
+              className="hover:text-teal-300"
+            >
+              vs Google Public DNS
+            </Link>
+          </div>
+        </div>
+
         {/* Cross-links */}
         <div className="flex flex-col gap-3 rounded-lg border border-teal-900/50 bg-gray-900/50 p-5">
           <p className="font-mono text-sm font-medium text-teal-300">
