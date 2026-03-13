@@ -8,6 +8,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [rateLimited, setRateLimited] = useState(false);
+  const [upgradeUrl, setUpgradeUrl] = useState("");
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -30,6 +31,7 @@ export default function Home() {
       if (!res.ok) {
         const data = await res.json().catch(() => null);
         if (res.status === 429) {
+          if (data?.upgradeUrl) setUpgradeUrl(data.upgradeUrl);
           setRateLimited(true);
           setLoading(false);
           return;
@@ -172,7 +174,9 @@ export default function Home() {
                   Upgrade to Pro for unlimited lookups — no waiting.
                 </p>
                 <a
-                  href="/pricing"
+                  href={upgradeUrl || "/pricing"}
+                  target={upgradeUrl ? "_blank" : undefined}
+                  rel={upgradeUrl ? "noopener noreferrer" : undefined}
                   className="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-5 py-2 font-mono text-sm font-medium text-white transition-colors hover:bg-teal-500"
                 >
                   Upgrade to Pro — $5/mo
